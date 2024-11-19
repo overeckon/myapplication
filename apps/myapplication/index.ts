@@ -1,6 +1,7 @@
+import { SCP, Key } from '@secretarium/connector';
 import { Notifier, HTTP, HttpRequest, Ledger, JSON } from '@klave/sdk';
 import { HelloWorldOutput, ErrorMessage, FetchInput, FetchOutput, StoreInput, StoreOutput, FxRateData, FxRateResult } from './types';
-import { SCP, Key } from '@secretarium/connector';
+import { secretariumMain } from './secretariumConnector';
 
 const myTableName = "my_storage_table";
 
@@ -45,43 +46,4 @@ export function storeValue(input: StoreInput): void {
 /**
  * @query
  */
-
-
-
-type MyValue = {
-    success: boolean;
-    value: string;
-}
-
-async function main() {
-    const context = new SCP();
-    const myKey = await Key.createKey();
-
-    await context.connect('wss://on.klave.network', myKey);
-
-    // We reference the name of our application deployment
-    const myAppId = 'your_app.on.klave.network';
-
-    // We load data in our application ledger with a transaction
-    let transaction = {
-        "dcapp": myAppId,
-        "function": "storeValue",
-        "args": { key: 'myKey', value: 'myValue' }
-    };
-
-    await context.newTx(myAppId, 'storeValue', 'requestId1', transaction).send();
-
-    // We retrieve the data with a query
-    let query = {
-        "dcapp": myAppId,
-        "function": "fetchValue",
-        "args": { key: 'myKey' }
-    };
-
-    const result = await context.newQuery<MyValue>(myAppId, 'fetchValue', 'requestId2', query).send();
-
-    // We display the data we retrieve and see it matches
-    console.log(result); // { "success": true, "value": "myValue" }
-}
-
-main();
+secretariumMain();
