@@ -16,5 +16,8 @@
         "tslib": "^2.6.2",
         "visitor-as": "^0.11.4",
         "zod": "^3.22.4"
+    },
+    "dependencies": {
+        "@secretarium/connector": "^0.12.4"
     }
 }
