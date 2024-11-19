@@ -1,4 +1,4 @@
-import { Notifier, HTTP, HttpRequest } from '@klave/sdk';
+import { Notifier, HTTP, HttpRequest, Ledger, JSON  } from '@klave/sdk';
 import { HelloWorldOutput, ErrorMessage, FetchInput, FetchOutput, StoreInput, StoreOutput, FxRateData, FxRateResult } from './types';
 
 const myTableName = "my_storage_table";
